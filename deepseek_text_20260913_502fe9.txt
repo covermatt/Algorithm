@@ -1,0 +1,46 @@
+gbp_mtf_system/
+├── config/
+│   ├── symbols.yaml           # symbol, pip, contract, spread, swap
+│   ├── risk.yaml              # capital, per-trade, DD, heat, kill switch
+│   ├── strategy.yaml          # all tunable params (single source of truth)
+│   └── ops.yaml               # VPS path, Telegram, log paths
+├── src/
+│   ├── data/
+│   │   ├── mt5_loader.py      # pull M1, cache parquet
+│   │   └── aggregator.py      # M1 → M15/H1, server-time safe
+│   ├── features/
+│   │   ├── h1_regime.py       # EMA + ATR regime matrix
+│   │   └── m15_triggers.py    # Asian range, compression, VWAP
+│   ├── engine/
+│   │   ├── events.py          # BarEvent, TickEvent, OrderEvent, FillEvent
+│   │   ├── order.py           # Order dataclass w/ validation
+│   │   ├── portfolio.py       # positions, equity MTM, history
+│   │   ├── execution.py       # spread + slippage + FOK fill model
+│   │   └── backtest.py        # event loop
+│   ├── risk/
+│   │   ├── risk_manager.py    # sizing, heat, correlation, DD
+│   │   └── kill_switch.py     # halt + liquidate
+│   ├── live/
+│   │   ├── mt5_broker.py      # order_send, positions_get, sync
+│   │   ├── paper_trader.py    # demo loop
+│   │   └── monitor.py         # metrics + Telegram
+│   ├── analytics/
+│   │   ├── performance.py     # Sharpe, Sortino, Calmar, PF, DD
+│   │   └── walkforward.py     # IS/OOS, embargo, sensitivity
+│   └── utils/
+│       ├── logging_setup.py
+│       ├── telegram_alert.py
+│       └── time_utils.py      # server TZ + DST-safe windows
+├── tests/
+│   ├── test_order_math.py
+│   ├── test_risk_limits.py
+│   ├── test_dd_tracker.py
+│   └── test_execution_costs.py
+├── scripts/
+│   ├── pull_data.py
+│   ├── run_backtest.py
+│   ├── run_walkforward.py
+│   └── run_paper.py
+├── reports/
+├── requirements.txt
+└── README.md
