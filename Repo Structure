@@ -1,0 +1,27 @@
+gbp_mtf_sim/
+├── config/
+│   ├── symbols.yaml
+│   ├── risk.yaml
+│   └── strategy.yaml
+├── src/
+│   ├── data/
+│   │   ├── synthetic.py
+│   │   └── aggregator.py
+│   ├── engine/
+│   │   ├── order.py
+│   │   ├── execution.py
+│   │   ├── portfolio.py
+│   │   └── backtest.py
+│   ├── features/
+│   │   ├── h1_regime.py
+│   │   └── m15_triggers.py
+│   ├── risk/
+│   │   └── risk_manager.py
+│   └── analytics/
+│       └── performance.py
+├── scripts/
+│   └── run_sim.py
+├── tests/
+│   └── test_risk.py
+├── requirements.txt
+└── README.md
